@@ -1,0 +1,64 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "post",
+      "pageBundle": false,
+      "previewPath": null,
+      "filePrefix": "{{year}}-{{month}}-{{day}}",
+      "fileType": "md",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Categories",
+          "name": "categories",
+          "type": "categories",
+          "multiple": true
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags",
+          "multiple": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Pin to top",
+          "name": "pin",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "Posts",
+      "path": "[[workspace]]/_posts",
+      "contentTypes": ["post"],
+      "defaultLocale": "ko"
+    }
+  ],
+  "frontMatter.framework.id": "jekyll",
+  "frontMatter.preview.host": "http://localhost:4000",
+  "frontMatter.content.publicFolder": "assets",
+  "frontMatter.site.baseURL": "http://localhost:4000",
+  "frontMatter.git.enabled": true,
+  "frontMatter.git.commitMessage": "feat(post): {{title}}"
+}
