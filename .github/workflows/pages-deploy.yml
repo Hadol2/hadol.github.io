@@ -60,12 +60,14 @@ jobs:
 
 
 
-      - name: Dereference symlinks and hard links
+      - name: Break hard links and symlinks
         run: |
           SITE="_site${{ steps.pages.outputs.base_path }}"
-          cp -rL "$SITE" "${SITE}_clean"
+          tar czf /tmp/site.tar.gz -C "$SITE" .
           rm -rf "$SITE"
-          mv "${SITE}_clean" "$SITE"
+          mkdir -p "$SITE"
+          tar xzf /tmp/site.tar.gz -C "$SITE"
+          rm /tmp/site.tar.gz
 
       - name: Upload site artifact
         uses: actions/upload-artifact@v4
