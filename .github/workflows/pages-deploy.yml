@@ -60,8 +60,12 @@ jobs:
 
 
 
-      - name: Remove symlinks
-        run: find "_site${{ steps.pages.outputs.base_path }}" -type l -delete
+      - name: Dereference symlinks and hard links
+        run: |
+          SITE="_site${{ steps.pages.outputs.base_path }}"
+          cp -rL "$SITE" "${SITE}_clean"
+          rm -rf "$SITE"
+          mv "${SITE}_clean" "$SITE"
 
       - name: Upload site artifact
         uses: actions/upload-artifact@v4
