@@ -27,16 +27,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # submodules: true
-          # If using the 'assets' git submodule from Chirpy Starter, uncomment above
-          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -45,9 +42,9 @@ jobs:
           bundler-cache: true
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install  # Bootstrap 등 필요한 패키지 설치
@@ -80,4 +77,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
