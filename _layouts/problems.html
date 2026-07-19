@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+{% assign ps_posts = site.posts | where_exp: "post", "post.problem or post.difficulty or post.algorithms" %}
+
+{% assign difficulties = ps_posts | map: "difficulty" | compact | uniq | sort %}
+{% assign all_algorithms = "" | split: "" %}
+{% for post in ps_posts %}
+  {% for algorithm in post.algorithms %}
+    {% assign all_algorithms = all_algorithms | push: algorithm %}
+  {% endfor %}
+{% endfor %}
+{% assign algorithms = all_algorithms | uniq | sort %}
+
+<div class="hd-proj-page">
+  <h1 class="hd-proj-page-title">Problems</h1>
+  <p class="hd-proj-page-desc">{{ page.description | default: "PS 풀이 모음" }}</p>
+
+  <div class="hd-prob-filters">
+    {% if difficulties.size > 0 %}
+      <div class="hd-prob-filter-group" data-filter="difficulty" role="group" aria-label="난이도 필터">
+        <span class="hd-prob-filter-label" aria-hidden="true">난이도</span>
+        {% for difficulty in difficulties %}
+          <button type="button" class="hd-prob-pill" data-value="{{ difficulty }}" aria-pressed="false">{{ difficulty }}</button>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if algorithms.size > 0 %}
+      <div class="hd-prob-filter-group" data-filter="algorithm" role="group" aria-label="알고리즘 필터">
+        <span class="hd-prob-filter-label" aria-hidden="true">알고리즘</span>
+        {% for algorithm in algorithms %}
+          <button type="button" class="hd-prob-pill" data-value="{{ algorithm }}" aria-pressed="false">{{ algorithm }}</button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="hd-prob-list" id="problem-list">
+    {% for post in ps_posts %}
+      <a href="{{ post.url | relative_url }}" class="hd-prob-row"
+         data-difficulty="{{ post.difficulty }}"
+         data-algorithms="{{ post.algorithms | join: '|' }}">
+        <div class="hd-prob-main">
+          <span class="hd-prob-name">{{ post.problem | default: post.title }}</span>
+          <span class="hd-prob-post-title">{{ post.title }}</span>
+        </div>
+        <div class="hd-prob-side">
+          {% if post.difficulty %}
+            <span class="hd-prob-tier">{{ post.difficulty }}</span>
+          {% endif %}
+          {% for algorithm in post.algorithms %}
+            <span class="hd-tag">{{ algorithm }}</span>
+          {% endfor %}
+          <time>{{ post.date | date: "%Y. %m. %d" }}</time>
+        </div>
+      </a>
+    {% endfor %}
+    <p class="hd-no-results" id="problem-empty" hidden>조건에 맞는 풀이가 없습니다.</p>
+  </div>
+</div>

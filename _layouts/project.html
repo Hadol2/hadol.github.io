@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<div class="hd-proj-detail">
+  <p class="hd-proj-detail-back">
+    <a href="{{ '/projects/' | relative_url }}">← Projects</a>
+  </p>
+
+  <div class="hd-proj-detail-header">
+    <h1 class="hd-proj-detail-title">{{ page.name }}</h1>
+    {% if page.status == "done" %}
+      <span class="hd-proj-status done">완료</span>
+    {% elsif page.status == "wip" %}
+      <span class="hd-proj-status wip">진행 중</span>
+    {% endif %}
+  </div>
+
+  <p class="hd-proj-detail-desc">{{ page.desc }}</p>
+
+  <div class="hd-proj-detail-meta">
+    <span class="hd-proj-detail-year">{{ page.year }}</span>
+    <div class="hd-proj-tags">
+      {% for tag in page.tags %}
+        <span class="hd-tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="hd-proj-links">
+    {% if page.links.github %}
+      <a href="{{ page.links.github }}" class="hd-proj-link primary"
+         target="_blank" rel="noopener noreferrer">GitHub</a>
+    {% endif %}
+    {% if page.links.demo %}
+      <a href="{{ page.links.demo }}" class="hd-proj-link"
+         target="_blank" rel="noopener noreferrer">라이브 데모</a>
+    {% endif %}
+    {% if page.links.post %}
+      <a href="{{ page.links.post | relative_url }}" class="hd-proj-link">개발기 →</a>
+    {% endif %}
+  </div>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</div>

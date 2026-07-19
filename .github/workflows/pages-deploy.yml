@@ -32,13 +32,33 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3
+          ruby-version: "3.3"
           bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+
+      - name: Test publisher
+        run: |
+          npm ci --prefix scripts
+          npm test --prefix scripts
 
       - name: Build site
         run: bundle exec jekyll b -d "_site" --baseurl ""
         env:
           JEKYLL_ENV: "production"
+
+      - name: Verify site artifact
+        run: |
+          test -f "_site/search.json"
+          test ! -e "_site/scripts/publish.js"
+          test ! -e "_site/mockup.html"
+          test "$(grep -c '<meta name="description"' _site/index.html)" -eq 1
+          ! grep -R -q "prod-files-secure" "_site"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

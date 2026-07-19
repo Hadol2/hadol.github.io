@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
     "notion-to-md": "^3.1.1"

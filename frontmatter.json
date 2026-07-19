@@ -43,6 +43,46 @@
           "name": "pin",
           "type": "boolean",
           "default": false
+        },
+        {
+          "title": "Series",
+          "name": "series",
+          "type": "string"
+        },
+        {
+          "title": "Problem",
+          "name": "problem",
+          "type": "string"
+        },
+        {
+          "title": "Problem URL",
+          "name": "problem_url",
+          "type": "string"
+        },
+        {
+          "title": "Difficulty",
+          "name": "difficulty",
+          "type": "string"
+        },
+        {
+          "title": "Algorithms",
+          "name": "algorithms",
+          "type": "list"
+        },
+        {
+          "title": "Time complexity",
+          "name": "time_complexity",
+          "type": "string"
+        },
+        {
+          "title": "Space complexity",
+          "name": "space_complexity",
+          "type": "string"
+        },
+        {
+          "title": "Solution URL",
+          "name": "solution_url",
+          "type": "string"
         }
       ]
     }

@@ -19,7 +19,12 @@
     </ul>
 
     <div class="hd-nav-actions">
-      <button type="button" class="hd-nav-icon" id="search-trigger" aria-label="검색">
+      <button type="button" class="hd-nav-icon hd-menu-btn" id="nav-menu-trigger"
+        aria-label="메뉴 열기" aria-controls="hd-mobile-nav" aria-expanded="false">
+        <i class="fas fa-bars fa-fw"></i>
+      </button>
+      <button type="button" class="hd-nav-icon" id="search-trigger"
+        aria-label="검색" aria-controls="hd-search-bar" aria-expanded="false">
         <i class="fas fa-search fa-fw"></i>
       </button>
       <div class="hd-nav-right-group">
@@ -35,12 +40,22 @@
     </div>
   </div>
 
+  <nav class="hd-mobile-nav" id="hd-mobile-nav" aria-label="모바일 내비게이션">
+    <a href="{{ '/' | relative_url }}"
+      {% if page.layout == 'home' %}class="active"{% endif %}>Home</a>
+    {% for tab in site.tabs %}
+      <a href="{{ tab.url | relative_url }}"
+        {% if tab.url == page.url %}class="active"{% endif %}>{{ tab.title | capitalize }}</a>
+    {% endfor %}
+  </nav>
+
   <!-- Search bar -->
   <div class="hd-search-bar" id="hd-search-bar">
     <div class="hd-search-field">
       <i class="fas fa-search fa-fw"></i>
       <input type="search" id="search-input"
-        placeholder="검색어를 입력하세요..."
+        aria-label="전체 글 검색"
+        placeholder="검색어 입력 (#태그, @카테고리 필터)"
         autocomplete="off" spellcheck="false">
     </div>
     <button type="button" class="hd-search-close" id="search-close">닫기</button>

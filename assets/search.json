@@ -1,5 +1,6 @@
 ---
 layout: none
+permalink: /search.json
 ---
 [
   {% for post in site.posts %}

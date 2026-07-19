@@ -1,7 +1,6 @@
 # Bundler cache
 .bundle
 vendor
-Gemfile.lock
 
 # Jekyll cache
 .jekyll-cache
@@ -14,7 +13,6 @@ _app
 
 # NPM dependencies
 node_modules
-package-lock.json
 
 # IDE configurations
 .idea
@@ -23,6 +21,9 @@ package-lock.json
 !.vscode/extensions.json
 
 # Misc
+.DS_Store
+.frontmatter/
+mockup.html
 _sass/dist
 assets/js/dist
 

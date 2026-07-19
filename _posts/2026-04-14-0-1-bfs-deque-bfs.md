@@ -4,6 +4,12 @@ date: 2026-04-14 00:00:00 +0900
 categories: [algorithm]
 tags: [PS]
 description: "Deque BFS 설명 및 관련 문제 풀이"
+series: "그래프 알고리즘"
+problem: "BOJ 13549 — 숨바꼭질 3"
+problem_url: "https://www.acmicpc.net/problem/13549"
+difficulty: "골드 5"
+algorithms: ["0-1 BFS", "BFS", "덱"]
+time_complexity: "O(V+E)"
 ---
 
 ## 핵심 요약

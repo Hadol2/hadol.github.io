@@ -24,6 +24,53 @@ layout: default
       {% endif %}
     </div>
 
+    {% if page.problem or page.problem_url or page.difficulty or page.algorithms.size > 0 or page.time_complexity or page.space_complexity or page.solution_url %}
+      <div class="ps-info">
+        {% if page.problem or page.problem_url %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">문제</span>
+            <span class="ps-info-value">
+              {% if page.problem_url %}
+                <a href="{{ page.problem_url }}" target="_blank" rel="noopener">{{ page.problem | default: page.problem_url }}</a>
+              {% else %}
+                {{ page.problem }}
+              {% endif %}
+            </span>
+          </div>
+        {% endif %}
+        {% if page.difficulty %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">난이도</span>
+            <span class="ps-info-value">{{ page.difficulty }}</span>
+          </div>
+        {% endif %}
+        {% if page.algorithms.size > 0 %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">알고리즘</span>
+            <span class="ps-info-value">{% for algorithm in page.algorithms %}<code>{{ algorithm }}</code>{% endfor %}</span>
+          </div>
+        {% endif %}
+        {% if page.time_complexity %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">시간 복잡도</span>
+            <span class="ps-info-value"><code>{{ page.time_complexity }}</code></span>
+          </div>
+        {% endif %}
+        {% if page.space_complexity %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">공간 복잡도</span>
+            <span class="ps-info-value"><code>{{ page.space_complexity }}</code></span>
+          </div>
+        {% endif %}
+        {% if page.solution_url %}
+          <div class="ps-info-row">
+            <span class="ps-info-label">풀이 코드</span>
+            <span class="ps-info-value"><a href="{{ page.solution_url }}" target="_blank" rel="noopener">{{ page.solution_url }}</a></span>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
     {% if page.image %}
       <img src="{{ page.image.path | default: page.image | relative_url }}"
            alt="{{ page.image.alt | default: page.title }}"
@@ -34,6 +81,25 @@ layout: default
       {{ content }}
     </div>
 
+    <!-- Series navigation -->
+    {% if page.series %}
+      {% assign series_posts = site.posts | where: "series", page.series | sort: "date" %}
+      <div class="post-series">
+        <p class="post-series-title">시리즈 · {{ page.series }}</p>
+        <ol>
+          {% for post in series_posts %}
+            <li>
+              {% if post.url == page.url %}
+                <span class="post-series-current">{{ post.title }}</span>
+              {% else %}
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      </div>
+    {% endif %}
+
     <!-- Tags footer -->
     {% if page.tags.size > 0 %}
       <div class="post-tail">
@@ -41,6 +107,30 @@ layout: default
           <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
              class="post-tag">{{ tag }}</a>
         {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Related posts -->
+    {% assign related_posts = "" | split: "" %}
+    {% for post in site.posts %}
+      {% if post.url == page.url or related_posts.size >= 3 %}{% continue %}{% endif %}
+      {% assign shared = false %}
+      {% for tag in post.tags %}
+        {% if page.tags contains tag %}{% assign shared = true %}{% break %}{% endif %}
+      {% endfor %}
+      {% if shared %}{% assign related_posts = related_posts | push: post %}{% endif %}
+    {% endfor %}
+    {% if related_posts.size > 0 %}
+      <div class="post-related">
+        <p class="post-related-title">관련 글</p>
+        <div class="post-related-list">
+          {% for post in related_posts %}
+            <a href="{{ post.url | relative_url }}" class="post-related-item">
+              <span class="post-related-item-title">{{ post.title }}</span>
+              <time>{{ post.date | date: "%Y. %m. %d" }}</time>
+            </a>
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
 
@@ -56,7 +146,7 @@ layout: default
 <!-- Giscus comments -->
 <div class="post-comments">
   <script src="https://giscus.app/client.js"
-          data-repo="Hadol2/hadol.github.io"
+          data-repo="Hadol2/hadol2.github.io"
           data-repo-id="R_kgDOMThgOw"
           data-category="General"
           data-category-id="DIC_kwDOMThgO84C69RM"

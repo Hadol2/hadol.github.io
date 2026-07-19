@@ -2,7 +2,7 @@
 layout: default
 ---
 
-{% assign all_projects = site.data.projects %}
+{% assign all_projects = site.projects %}
 {% assign years = all_projects | map: "year" | uniq | sort | reverse %}
 
 <div class="hd-proj-page">
@@ -35,8 +35,9 @@ layout: default
               </div>
 
               <div class="hd-proj-links">
+                <a href="{{ proj.url | relative_url }}" class="hd-proj-link primary">자세히 →</a>
                 {% if proj.links.github %}
-                  <a href="{{ proj.links.github }}" class="hd-proj-link primary"
+                  <a href="{{ proj.links.github }}" class="hd-proj-link"
                      target="_blank" rel="noopener noreferrer">GitHub</a>
                 {% endif %}
                 {% if proj.links.demo %}
